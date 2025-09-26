@@ -32,7 +32,7 @@ export class GameManager{
     init = async () => {
       // this.solution = await new Promise((res) => setTimeout(() => res("BELGIUM") , 3000));
       try{
-        const response = await fetch('http://localhost:8080/get-country');
+        const response = await fetch('/api/get-countries');
         const data = await response.json();
         console.log('___data', data);
         const {code, countryName} = data;
