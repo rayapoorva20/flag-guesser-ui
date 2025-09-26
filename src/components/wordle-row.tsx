@@ -64,7 +64,7 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
         {value.map((curr, index) => {
           return <span style={{
             '--rotationTime': `${rotationTime}ms`
-          }} className={`single-character ${toRotate[index] ? `single-character--flip  ${classArray[index]}` : ''}`} key={index}>{curr}</span>
+          } as any} className={`single-character ${toRotate[index] ? `single-character--flip  ${classArray[index]}` : ''}`} key={index}>{curr}</span>
         })}
       </div> 
     )

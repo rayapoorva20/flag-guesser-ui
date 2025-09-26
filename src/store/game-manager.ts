@@ -43,7 +43,7 @@ export class GameManager{
         console.error('___error', e);
       }
 
-      this.length = this.solution.length;
+      this.length = this.solution?.length || 0;
       this.currentSet = Array(this.length).fill('');
     }
 
