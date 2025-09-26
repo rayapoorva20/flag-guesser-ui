@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  content-visibility: auto;
+}
+body {
+  font-family: sans-serif;
+}
+
+.single-character {
+  display: block;
+  height: 80px;
+  width: 60px;
+  text-align: center;
+  align-content: center;
+  line-height: 16px;
+  border: 2px solid darkslategrey;
+}
+
+.single-character--flip{
+  --rotation-time: 1s;
+  animation-name: flip, colorshift;
+  animation-duration: var(--rotation-time),  var(--rotation-time);
+  animation-timing-function: linear, linear;
+  animation-fill-mode: forwards, forwards;
+}
+.single-character--present{
+  opacity: 1;
+  background-color: antiquewhite;
+}
+
+.single-character--correct{
+  opacity: 1;
+  background-color: lightgreen;
+}
+
+.single-character--incorrect{
+  opacity: 1;
+  background-color: #cdd0d4;
+}
+
+.wordle-row {
+  display: flex;
+  gap: 4px;
+  padding: 16px;
+  width: 100%;
+}
+
+.wordle-row--shake{
+  animation-name: shake;
+  animation-duration: 500ms;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+
+.wordle-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wordle-title {
+  font-size: xx-large;
+}
+
+.keyboard-layout{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.keyboard-row{
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+
+
+.keyboard-character {
+  display: block;
+  cursor: pointer;
+  /* pointer-events: none; */
+  height: 80px;
+  width: 60px;
+  background-color: #cdd0d4;
+  text-align: center;
+  align-content: center;
+  line-height: 16px;
+  border-radius: 8px;
+}
+
+
+#ENTER.keyboard-character{
+    width: 80px;
+}
+
+#⌫.keyboard-character{
+    width: 80px;
+}
+
+
+@keyframes shake {
+  0%{
+    transform: translateX(0)
+  }
+  25%{
+    transform: translateX(-20px)
+  }
+  75%{
+    transform: translateX(20px)
+  }
+  100%{
+    transform: translateX(0)
+  }
+}
+
+@keyframes flip {
+  0%{
+    transform: rotateX(0)
+  }
+  100%{
+    transform: rotateX(360deg)
+  }
+
+}
+
+@keyframes colorshift {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
