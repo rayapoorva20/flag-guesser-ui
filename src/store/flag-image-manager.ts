@@ -1,4 +1,4 @@
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 export enum ImageState{
     LOADING = 'LOADING',
@@ -9,7 +9,10 @@ export class FlagImageManager {
     state = ImageState.LOADING;
     constructor(){
         makeObservable(this, {
-            state: observable
+            state: observable,
+            onFetchError: action,
+            onFetchStart: action,
+            onFetchComplete: action
         });
     }
     onFetchStart = () => {

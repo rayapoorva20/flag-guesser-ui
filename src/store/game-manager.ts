@@ -33,6 +33,9 @@ export class GameManager{
     }
     
     restart = () => {
+      if(this.entryAllowed === false){
+        return;
+      }
       this.setupNewGame();
     }
     setupNewGame = () => {
@@ -57,6 +60,7 @@ export class GameManager{
         const {code, countryName} = data;
         this.solution = countryName.toUpperCase();
         this.solutionCode = code;
+        this.setEntryAllowed(true)
         this.length = this.solution?.length || 0;
         this.currentSet = Array(this.length).fill('');
       }
@@ -81,7 +85,7 @@ export class GameManager{
             this.gameState = GameState.WON;
             return true
         }
-        this.setRowValidity('invalid');
+        this.setRowValidity('inactive');
         return false;
     }
 
@@ -89,12 +93,12 @@ export class GameManager{
       if('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(key) === -1 && key !== 'ENTER' && key !== 'BACKSPACE' && key !== ' '){
         return;
       }
-      if(!this.entryAllowed){
+      if(this.gameState === GameState.WON){
         return;
       }
       if(key === 'ENTER' && this.activeElement === this.length){
         if(!this.validate()){
-            return false;
+            return;
         }
       }
       else if(key === 'BACKSPACE'){
