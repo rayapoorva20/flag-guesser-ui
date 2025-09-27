@@ -109,13 +109,13 @@ body {
 }
 
 .flag-image{
-  height: 96px;
-  width: 96px;
-  border: 1px solid black;
-  border-style: dotted;
-  border-radius: 4px;
-  background-color: rgb(234 251 255);
+  height: 100px;
+  width: 150px;
   margin: 8px;
+  object-fit: cover;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .loader{

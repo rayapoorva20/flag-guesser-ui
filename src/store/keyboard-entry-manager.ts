@@ -8,6 +8,7 @@ export class KeyboardEntryManager {
     }
 
     onKeyDown = (e) => {
+        console.log('***PRESSING', e.key.toUpperCase());
         this.gameManager.onCharacterEnter(e.key.toUpperCase());
     }
 

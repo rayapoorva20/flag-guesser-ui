@@ -1,6 +1,10 @@
+import { set } from "mobx";
 import { inject, observer } from "mobx-react"
 import { useEffect, useState } from "react"
 
+const charMap = {
+    ' ': '.',
+}
 const getClassArrayFromSolution = (state, value, solution) => {
     console.log('***solution', solution);
     if(state !== 'valid'){
@@ -25,6 +29,11 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
     const [rotatedIndex, setRotatedIndex] = useState(-1);
     const {solution} = store;
     const classArray = getClassArrayFromSolution(state, value, solution);
+    useEffect(() => {
+        setToRotate(Array(value.length).fill(false));
+        setRotatedIndex(-1);
+    }, [solution]);
+
     useEffect(()=>{
         if(state === 'valid'){
             setRotatedIndex(0);
@@ -39,6 +48,8 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
             store.setEntryAllowed(true);
         }
     },[state])
+
+
 
 
     useEffect(() => {
@@ -63,7 +74,7 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
         {value.map((curr, index) => {
           return <span style={{
             '--rotationTime': `${rotationTime}ms`
-          } as any} className={`single-character ${toRotate[index] ? `single-character--flip  ${classArray[index]}` : ''}`} key={index}>{curr}</span>
+          } as any} className={`single-character ${toRotate[index] ? `single-character--flip  ${classArray[index]}` : ''}`} key={index}>{charMap[curr]||curr}</span>
         })}
       </div> 
     )

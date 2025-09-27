@@ -37,7 +37,6 @@ export class GameManager{
     }
     setupNewGame = () => {
       this.gameState = GameState.LOADING;
-      this.imageManager.onFetchStart();
       this.rowValidity = 'inactive';
       this.activeRow = 0;
       this.activeElement = 0;
@@ -87,7 +86,7 @@ export class GameManager{
     }
 
     onCharacterEnter = (key) => {
-      if('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(key) === -1 && key !== 'ENTER' && key !== 'BACKSPACE'){
+      if('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(key) === -1 && key !== 'ENTER' && key !== 'BACKSPACE' && key !== ' '){
         return;
       }
       if(!this.entryAllowed){
