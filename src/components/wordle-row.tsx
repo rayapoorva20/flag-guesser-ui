@@ -2,6 +2,13 @@ import { inject, observer } from "mobx-react"
 import { useEffect, useState } from "react"
 import { GameManager, RowState } from "../store/game-manager";
 
+interface WordleRowOwnProps {
+  value?: string[];
+  state?: RowState;
+}
+
+type WordleRowProps = WordleRowOwnProps & { store?: GameManager };
+
 const charMap = {
     ' ': '.',
 }
@@ -19,12 +26,13 @@ const getClassArrayFromSolution = (state, value, solution) => {
     }
     return res;
 }
-export const WordleRow = inject('store')(observer(({store, value, state}: {store: GameManager, value: string, state: RowState}) => {
+export const WordleRow = inject('store')(observer((props: WordleRowProps) => {
+    const { store, value = [], state } = props;
     const rotationTime = 200;
     const [shake, setShake] = useState(true);
     const [toRotate, setToRotate] = useState(Array(value.length).fill(false));
     const [rotatedIndex, setRotatedIndex] = useState(-1);
-    const {solution} = store;
+    const {solution} = store!;
     const classArray = getClassArrayFromSolution(state, value, solution);
     useEffect(() => {
         setToRotate(Array(value.length).fill(false));
@@ -34,18 +42,18 @@ export const WordleRow = inject('store')(observer(({store, value, state}: {store
     useEffect(()=>{
         if(state === RowState.VALID){
             setRotatedIndex(0);
-            store.setEntryAllowed(false);
+            store?.setEntryAllowed(false);
         }
         else if(state === RowState.VALIDATION_FAILURE){
             setShake(true);
-            store.setEntryAllowed(false);
+            store?.setEntryAllowed(false);
             setTimeout(() => {
-                store.setRowValidity(RowState.ACTIVE);
+                store?.setRowValidity(RowState.ACTIVE);
             }, 500);
         }
         else{
             setShake(false);
-            store.setEntryAllowed(true);
+            store?.setEntryAllowed(true);
         }
     },[state])
 
@@ -62,7 +70,7 @@ export const WordleRow = inject('store')(observer(({store, value, state}: {store
 
     useEffect(() => {
         if(rotatedIndex === value.length){
-            store.setEntryAllowed(true);
+            store?.setEntryAllowed(true);
         }
     }, [rotatedIndex])
 

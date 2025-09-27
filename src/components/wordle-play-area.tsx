@@ -7,7 +7,7 @@ export const PlayArea = inject('store')(observer(({store}: {store?: GameManager}
     const word = store?.currentSet;
     return (
       <div className='wordle-play-area'>
-        <WordleRow value={word} state={store?.rowValidity}/>
+        <WordleRow value={word} state={store!.rowValidity}/>
       </div>
     )
   

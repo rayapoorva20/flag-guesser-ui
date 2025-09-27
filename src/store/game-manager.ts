@@ -16,7 +16,7 @@ export enum RowState{
 export class GameManager{
     solution?: string;
     length: number = 0;
-    rowValidity: RowState;
+    rowValidity?: RowState;
     currentSet: Array<string> = [];
     entryAllowed = true;
     activeRow;
@@ -86,9 +86,6 @@ export class GameManager{
       this.entryAllowed = value;
     }
     
-    setRowValidity = (state) => {
-        this.rowValidity = state;
-    }
 
     validate(){
         if(this.solution && this.solution === (this.currentSet?.join(''))){
