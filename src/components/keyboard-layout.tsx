@@ -5,7 +5,8 @@ export const KeyboardLayout = observer(() => {
     const rows = [
       "QWERTYUIOP",
       "ASDFGHJKL",
-      "#ZXCVBNM⌫"
+      "#ZXCVBNM⌫",
+      " "
     ]
     return (
       <div className='keyboard-layout'>

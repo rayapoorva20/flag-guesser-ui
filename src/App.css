@@ -81,7 +81,6 @@ body {
 .keyboard-character {
   display: block;
   cursor: pointer;
-  /* pointer-events: none; */
   height: 80px;
   width: 60px;
   background-color: #cdd0d4;
@@ -98,6 +97,13 @@ body {
 
 #⌫.keyboard-character{
     width: 80px;
+}
+
+#SPACE.keyboard-character{
+    width: 400px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 10px;
 }
 
 
