@@ -5,17 +5,13 @@ import { TitleComponent } from './components/title';
 import './App.css';
 import { observer, Provider } from 'mobx-react';
 import { FlagContainer } from './components/flag-container';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { KeyboardEntryManager } from './store/keyboard-entry-manager';
 import { OverlayLoader } from './components/overlay-loader';
 
 const FlagGuesser = observer((({store}:{store: GameManager}) => {
   const {solution} = store;
-
-  useEffect(() => {
-    store.init();
-  }, []);
 
   console.log('___solution', solution);
   
@@ -37,8 +33,22 @@ const FlagGuesser = observer((({store}:{store: GameManager}) => {
 
 }));
 export default function App() {
-  const store = new GameManager();
-  const keyEntryManager = new KeyboardEntryManager(store);
-  return <FlagGuesser store={store}/>;
+  const [store, setStore] = useState<GameManager| null>(null);
+  useEffect(() => {
+    const store = new GameManager();
+    setStore(store);
+  }, []);
+  useEffect(() => {
+    if(!store){
+      return;
+    }
+    new KeyboardEntryManager(store);
+    store.setupNewGame();
+  }, [store])
+  
+  if(!store) {
+    return null;
+  }
+  return <div className='app'><FlagGuesser store={store}/></div>;
 }
      

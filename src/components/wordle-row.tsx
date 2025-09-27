@@ -19,7 +19,6 @@ const getClassArrayFromSolution = (state, value, solution) => {
     return res;
 }
 export const WordleRow = inject('store')(observer(({store, value, state}) => {
-    console.log('***value', value);
     const rotationTime = 200;
     const [shake, setShake] = useState(true);
     const [toRotate, setToRotate] = useState(Array(value.length).fill(false));

@@ -4,8 +4,8 @@ const valueMap = {
     '#': 'ENTER',
     '⌫': 'BACKSPACE',
     ' ': 'SPACE'
-
 }
+
 export const KeyBoardCharacter = inject('store')(observer(({store, value}) => {
     const displayValue = value === '#' ? 'ENTER' : value;
     const id = valueMap[value] || value;

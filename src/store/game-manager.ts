@@ -27,9 +27,9 @@ export class GameManager{
         entryAllowed: observable,
         onCharacterEnter: action,
         setRowValidity: action,
+        setupNewGame: action,
         loading: computed
       })
-      this.setupNewGame(); 
     }
     
     restart = () => {
@@ -87,6 +87,9 @@ export class GameManager{
     }
 
     onCharacterEnter = (key) => {
+      if('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(key) === -1 && key !== 'ENTER' && key !== 'BACKSPACE'){
+        return;
+      }
       if(!this.entryAllowed){
         return;
       }

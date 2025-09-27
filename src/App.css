@@ -6,7 +6,9 @@
 body {
   font-family: sans-serif;
 }
-
+.app{
+  position: relative;
+}
 .single-character {
   display: block;
   height: 80px;
@@ -105,6 +107,32 @@ body {
     line-height: 60px;
     border-radius: 10px;
 }
+
+.flag-image{
+  height: 96px;
+  width: 96px;
+  border: 1px solid black;
+  border-style: dotted;
+  border-radius: 4px;
+  background-color: rgb(234 251 255);
+  margin: 8px;
+}
+
+.loader{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 500;
+  background-color: rgba(255,255,255,0.9);
+}
+.loader .loader-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
 
 
 @keyframes shake {
