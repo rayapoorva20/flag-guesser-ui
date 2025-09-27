@@ -1,5 +1,6 @@
 import { inject, observer } from "mobx-react"
 import { useEffect, useState } from "react"
+import { GameManager, RowState } from "../store/game-manager";
 
 const charMap = {
     ' ': '.',
@@ -15,13 +16,10 @@ const getClassArrayFromSolution = (state, value, solution) => {
         if(value[i] === solution[i]){
             res[i] = 'single-character--correct';
         }
-        else if(solution.includes(value[i])){
-            res[i] = 'single-character--present';
-        }
     }
     return res;
 }
-export const WordleRow = inject('store')(observer(({store, value, state}) => {
+export const WordleRow = inject('store')(observer(({store, value, state}: {store: GameManager, value: string, state: RowState}) => {
     const rotationTime = 200;
     const [shake, setShake] = useState(true);
     const [toRotate, setToRotate] = useState(Array(value.length).fill(false));
@@ -34,13 +32,16 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
     }, [solution]);
 
     useEffect(()=>{
-        if(state === 'valid'){
+        if(state === RowState.VALID){
             setRotatedIndex(0);
             store.setEntryAllowed(false);
         }
-        else if(state === 'invalid'){
+        else if(state === RowState.VALIDATION_FAILURE){
             setShake(true);
             store.setEntryAllowed(false);
+            setTimeout(() => {
+                store.setRowValidity(RowState.ACTIVE);
+            }, 500);
         }
         else{
             setShake(false);
@@ -49,7 +50,7 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
     },[state])
 
     useEffect(() => {
-        if(state === 'valid' && rotatedIndex < value.length){
+        if(state === RowState.VALID && rotatedIndex < value.length){
             setTimeout(()=>{
                 const dup = structuredClone(toRotate);
                 dup[rotatedIndex] = true;

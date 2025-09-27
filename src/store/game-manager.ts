@@ -6,10 +6,17 @@ export enum GameState {
   LOADING= 'loading',
   FAILED_LOADING = 'failed_loading'
 }
+
+export enum RowState{
+  ACTIVE = 'active',
+  VALID = 'valid',
+  VALIDATION_FAILURE = 'validation_failure',
+}
+
 export class GameManager{
     solution?: string;
     length: number = 0;
-    rowValidity;
+    rowValidity: RowState;
     currentSet: Array<string> = [];
     entryAllowed = true;
     activeRow;
@@ -40,10 +47,14 @@ export class GameManager{
     }
     setupNewGame = () => {
       this.gameState = GameState.LOADING;
-      this.rowValidity = 'inactive';
+      this.setRowValidity(RowState.ACTIVE);
       this.activeRow = 0;
       this.activeElement = 0;
       this.init();
+    }
+
+    setRowValidity = (state: RowState) => {
+      this.rowValidity = state;
     }
 
     get loading(){
@@ -81,11 +92,11 @@ export class GameManager{
 
     validate(){
         if(this.solution && this.solution === (this.currentSet?.join(''))){
-            this.setRowValidity('valid');
+            this.setRowValidity(RowState.VALID);
             this.gameState = GameState.WON;
             return true
         }
-        this.setRowValidity('inactive');
+        this.setRowValidity(RowState.VALIDATION_FAILURE);
         return false;
     }
 
