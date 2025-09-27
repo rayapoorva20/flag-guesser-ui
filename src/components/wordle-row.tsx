@@ -48,9 +48,6 @@ export const WordleRow = inject('store')(observer(({store, value, state}) => {
         }
     },[state])
 
-
-
-
     useEffect(() => {
         if(state === 'valid' && rotatedIndex < value.length){
             setTimeout(()=>{
