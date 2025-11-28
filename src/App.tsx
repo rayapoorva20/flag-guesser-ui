@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { KeyboardEntryManager } from './store/keyboard-entry-manager';
 import { OverlayLoader } from './components/overlay-loader';
+import { GoogleLogin } from './components/google-login';
 
 const FlagGuesser = observer((({store}:{store: GameManager}) => {
   const {solution} = store;
@@ -18,6 +19,7 @@ const FlagGuesser = observer((({store}:{store: GameManager}) => {
 
   return (
     <OverlayLoader loading={store.loading}>
+      <GoogleLogin/>
       <Provider store={store}>
         <div className='wordle-main'>
           <ReplayIcon className='restart-icon' onClick={store.restart}/>
